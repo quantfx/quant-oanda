@@ -6,8 +6,13 @@
 //| Expert initialization function                                   |
 //+------------------------------------------------------------------+
 
-string ver = "ver.2014.09.23  03:00";
-double spreadLock = 0.5;
+string ver = "ver.2014.09.24  05:30";
+
+double spreadLock_EURUSD = 0.5;
+double spreadLock_USDJPY = 0.5;
+double spreadLock_GBPUSD = 1.3;
+
+double spreadLock;
 int slip = 5;
 
 double stopMargin = 10.0;
@@ -45,26 +50,26 @@ int OnInit()
   //--- set the text
   ObjectSetString(0, "pair", OBJPROP_TEXT, Symbol());
   //--- set text font
-  ObjectSetInteger(0, "pair", OBJPROP_FONTSIZE, 15);
+  ObjectSetInteger(0, "pair", OBJPROP_FONTSIZE, 12);
   //--- set color
   ObjectSetInteger(0, "pair", OBJPROP_COLOR, clrWhite);
 
   ObjectCreate(0, "ver", OBJ_LABEL, 0, 0, 0);
   ObjectSetInteger(0, "ver", OBJPROP_XDISTANCE, 150);
-  ObjectSetInteger(0, "ver", OBJPROP_YDISTANCE, 20);
+  ObjectSetInteger(0, "ver", OBJPROP_YDISTANCE, 15);
   //--- set the text
   ObjectSetString(0, "ver", OBJPROP_TEXT, ver);
   //--- set text font
-  ObjectSetInteger(0, "ver", OBJPROP_FONTSIZE, 10);
+  ObjectSetInteger(0, "ver", OBJPROP_FONTSIZE, 8);
   //--- set color
   ObjectSetInteger(0, "ver", OBJPROP_COLOR, clrWhite);
 
   ObjectCreate(0, "ea", OBJ_LABEL, 0, 0, 0);
   ObjectSetInteger(0, "ea", OBJPROP_XDISTANCE, 350);
-  ObjectSetInteger(0, "ea", OBJPROP_YDISTANCE, 20);
+  ObjectSetInteger(0, "ea", OBJPROP_YDISTANCE, 10);
 
   //--- set text font
-  ObjectSetInteger(0, "ea", OBJPROP_FONTSIZE, 20);
+  ObjectSetInteger(0, "ea", OBJPROP_FONTSIZE, 15);
 
 
 
@@ -95,6 +100,25 @@ int OnInit()
   {
     pip = 0.0001;
   }
+  
+    
+  if (Symbol() == "EURUSD")
+  {
+    spreadLock = spreadLock_EURUSD;
+  } 
+  
+  
+  if (Symbol() == "USDJPY")
+  {
+    spreadLock = spreadLock_USDJPY;
+  } 
+  
+    
+  if (Symbol() == "GBPUSD")
+  {
+    spreadLock = spreadLock_GBPUSD;
+  } 
+  
 
   holdCount = 0;
 
@@ -463,29 +487,29 @@ void showTick(double bid, double ask, double spread, double spreadAvg)
 
   ObjectCreate(0, "ask", OBJ_LABEL, 0, 0, 0);
   ObjectSetInteger(0, "ask", OBJPROP_XDISTANCE, 10);
-  ObjectSetInteger(0, "ask", OBJPROP_YDISTANCE, 40);
+  ObjectSetInteger(0, "ask", OBJPROP_YDISTANCE, 38);
   //--- set the text
   ObjectSetString(0, "ask", OBJPROP_TEXT, DoubleToStr(ask, 5));
   //--- set text font
-  ObjectSetInteger(0, "ask", OBJPROP_FONTSIZE, 15);
+  ObjectSetInteger(0, "ask", OBJPROP_FONTSIZE, 13);
   //--- set color
   ObjectSetInteger(0, "ask", OBJPROP_COLOR, clrWhite);
 
 
   ObjectCreate(0, "bid", OBJ_LABEL, 0, 0, 0);
   ObjectSetInteger(0, "bid", OBJPROP_XDISTANCE, 10);
-  ObjectSetInteger(0, "bid", OBJPROP_YDISTANCE, 60);
+  ObjectSetInteger(0, "bid", OBJPROP_YDISTANCE, 50);
   //--- set the text
   ObjectSetString(0, "bid", OBJPROP_TEXT, DoubleToStr(bid, 5));
   //--- set text font
-  ObjectSetInteger(0, "bid", OBJPROP_FONTSIZE, 15);
+  ObjectSetInteger(0, "bid", OBJPROP_FONTSIZE, 13);
   //--- set color
   ObjectSetInteger(0, "bid", OBJPROP_COLOR, clrWhite);
 
 
   ObjectCreate(0, "spread", OBJ_LABEL, 0, 0, 0);
   ObjectSetInteger(0, "spread", OBJPROP_XDISTANCE, 120);
-  ObjectSetInteger(0, "spread", OBJPROP_YDISTANCE, 47);
+  ObjectSetInteger(0, "spread", OBJPROP_YDISTANCE, 42);
   //--- set the text
   ObjectSetString(0, "spread", OBJPROP_TEXT, DoubleToStr(spread, 1));
   //--- set text font
@@ -496,7 +520,7 @@ void showTick(double bid, double ask, double spread, double spreadAvg)
 
   ObjectCreate(0, "spreadAvg", OBJ_LABEL, 0, 0, 0);
   ObjectSetInteger(0, "spreadAvg", OBJPROP_XDISTANCE, 180);
-  ObjectSetInteger(0, "spreadAvg", OBJPROP_YDISTANCE, 47);
+  ObjectSetInteger(0, "spreadAvg", OBJPROP_YDISTANCE, 42);
   //--- set the text
   ObjectSetString(0, "spreadAvg", OBJPROP_TEXT, DoubleToStr(spreadAvg, 1) + " (recent " + a + " avg)");
   //--- set text font
@@ -510,21 +534,21 @@ void showProtocol(Protocol & protocol, string dt0)
 
   ObjectCreate(0, "dt0", OBJ_LABEL, 0, 0, 0);
   ObjectSetInteger(0, "dt0", OBJPROP_XDISTANCE, 10);
-  ObjectSetInteger(0, "dt0", OBJPROP_YDISTANCE, 80);
+  ObjectSetInteger(0, "dt0", OBJPROP_YDISTANCE, 70);
   //--- set the text
   ObjectSetString(0, "dt0", OBJPROP_TEXT, dt0 + " (server time)");
   //--- set text font
-  ObjectSetInteger(0, "dt0", OBJPROP_FONTSIZE, 15);
+  ObjectSetInteger(0, "dt0", OBJPROP_FONTSIZE, 12);
   //--- set color
   ObjectSetInteger(0, "dt0", OBJPROP_COLOR, clrWhite);
 
   ObjectCreate(0, "dt", OBJ_LABEL, 0, 0, 0);
   ObjectSetInteger(0, "dt", OBJPROP_XDISTANCE, 10);
-  ObjectSetInteger(0, "dt", OBJPROP_YDISTANCE, 120);
+  ObjectSetInteger(0, "dt", OBJPROP_YDISTANCE, 100);
   //--- set the text
   ObjectSetString(0, "dt", OBJPROP_TEXT, protocol.dt + " (protocol time)");
   //--- set text font
-  ObjectSetInteger(0, "dt", OBJPROP_FONTSIZE, 15);
+  ObjectSetInteger(0, "dt", OBJPROP_FONTSIZE, 12);
   //--- set color
   ObjectSetInteger(0, "dt", OBJPROP_COLOR, clrWhite);
 
@@ -532,11 +556,11 @@ void showProtocol(Protocol & protocol, string dt0)
 
   ObjectCreate(0, "pos", OBJ_LABEL, 0, 0, 0);
   ObjectSetInteger(0, "pos", OBJPROP_XDISTANCE, 10);
-  ObjectSetInteger(0, "pos", OBJPROP_YDISTANCE, 140);
+  ObjectSetInteger(0, "pos", OBJPROP_YDISTANCE, 120);
   //--- set the text
   ObjectSetString(0, "pos", OBJPROP_TEXT, protocol.pos + " (" + protocol.posString + " x " + protocol.size + ")");
   //--- set text font
-  ObjectSetInteger(0, "pos", OBJPROP_FONTSIZE, 20);
+  ObjectSetInteger(0, "pos", OBJPROP_FONTSIZE, 17);
   //--- set color
   if (protocol.posString == "long")
     ObjectSetInteger(0, "pos", OBJPROP_COLOR, clrAqua);
@@ -547,11 +571,11 @@ void showProtocol(Protocol & protocol, string dt0)
 
   ObjectCreate(0, "lc", OBJ_LABEL, 0, 0, 0);
   ObjectSetInteger(0, "lc", OBJPROP_XDISTANCE, 10);
-  ObjectSetInteger(0, "lc", OBJPROP_YDISTANCE, 175);
+  ObjectSetInteger(0, "lc", OBJPROP_YDISTANCE, 145);
   //--- set the text
   ObjectSetString(0, "lc", OBJPROP_TEXT, protocol.losscut + " (losscut)");
   //--- set text font
-  ObjectSetInteger(0, "lc", OBJPROP_FONTSIZE, 15);
+  ObjectSetInteger(0, "lc", OBJPROP_FONTSIZE, 13);
   //--- set color
   ObjectSetInteger(0, "lc", OBJPROP_COLOR, clrWhite);
 }
@@ -561,24 +585,24 @@ void showAsset(Asset & asset)
 
   ObjectCreate(0, "asset.pos", OBJ_LABEL, 0, 0, 0);
   ObjectSetInteger(0, "asset.pos", OBJPROP_XDISTANCE, 10);
-  ObjectSetInteger(0, "asset.pos", OBJPROP_YDISTANCE, 220);
+  ObjectSetInteger(0, "asset.pos", OBJPROP_YDISTANCE, 170);
   //--- set the text
   if (pending)
     ObjectSetString(0, "asset.pos", OBJPROP_TEXT, asset.pos + " <--- PENDING");
   else
     ObjectSetString(0, "asset.pos", OBJPROP_TEXT, asset.pos);
   //--- set text font
-  ObjectSetInteger(0, "asset.pos", OBJPROP_FONTSIZE, 20);
+  ObjectSetInteger(0, "asset.pos", OBJPROP_FONTSIZE, 15);
   //--- set color
   ObjectSetInteger(0, "asset.pos", OBJPROP_COLOR, clrYellow);
 
   ObjectCreate(0, "lcA", OBJ_LABEL, 0, 0, 0);
   ObjectSetInteger(0, "lcA", OBJPROP_XDISTANCE, 10);
-  ObjectSetInteger(0, "lcA", OBJPROP_YDISTANCE, 250);
+  ObjectSetInteger(0, "lcA", OBJPROP_YDISTANCE, 190);
   //--- set the text
   ObjectSetString(0, "lcA", OBJPROP_TEXT, asset.losscut + " (losscut+-" + stopMargin + "pips)");
   //--- set text font
-  ObjectSetInteger(0, "lcA", OBJPROP_FONTSIZE, 15);
+  ObjectSetInteger(0, "lcA", OBJPROP_FONTSIZE, 13);
   //--- set color
   ObjectSetInteger(0, "lcA", OBJPROP_COLOR, clrYellow);
   //========================================================
@@ -590,7 +614,7 @@ void showAsset(Asset & asset)
   //--- set the text
   ObjectSetString(0, "hc", OBJPROP_TEXT, holdCount + " ticks (order hold counter)");
   //--- set text font
-  ObjectSetInteger(0, "hc", OBJPROP_FONTSIZE, 10);
+  ObjectSetInteger(0, "hc", OBJPROP_FONTSIZE, 8);
   //--- set color
   ObjectSetInteger(0, "hc", OBJPROP_COLOR, clrYellow);
   //========================================================
