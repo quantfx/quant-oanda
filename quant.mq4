@@ -592,7 +592,7 @@ void showAsset(Asset & asset)
   else
     ObjectSetString(0, "asset.pos", OBJPROP_TEXT, asset.pos);
   //--- set text font
-  ObjectSetInteger(0, "asset.pos", OBJPROP_FONTSIZE, 15);
+  ObjectSetInteger(0, "asset.pos", OBJPROP_FONTSIZE, 17);
   //--- set color
   ObjectSetInteger(0, "asset.pos", OBJPROP_COLOR, clrYellow);
 
