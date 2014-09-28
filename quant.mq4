@@ -6,7 +6,7 @@
 //| Expert initialization function                                   |
 //+------------------------------------------------------------------+
 
-string ver = "ver.2014.09.24  05:30";
+string ver = "ver.2014.09.29  08:30";
 
 double spreadLock_EURUSD = 0.5;
 double spreadLock_USDJPY = 0.5;
@@ -15,7 +15,7 @@ double spreadLock_GBPUSD = 1.3;
 double spreadLock;
 int slip = 5;
 
-double stopMargin = 10.0;
+double stopMargin = 20.0;
 
 double pip;
 
